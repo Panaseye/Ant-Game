@@ -1,0 +1,2 @@
+/Users/talezra/Documents/unity projects/ant game/Ant-Game/ant game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/Users/talezra/Documents/unity projects/ant game/Ant-Game/ant game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt
