@@ -15,6 +15,7 @@ public class gun : XRGrabInteractable
 
     public  GameObject ammo;
     public Transform shooterPoint;
+    public float pulsePower = 100f;
     
      void Start()
     {
@@ -24,7 +25,15 @@ public class gun : XRGrabInteractable
   
     public void Shoot()
     {
-        Instantiate(ammo,shooterPoint.position, shooterPoint.rotation);
+        GameObject newAmmo = Instantiate(ammo, shooterPoint.position, shooterPoint.rotation);
+
+    
+        Rigidbody ammoRigidbody = newAmmo.GetComponent<Rigidbody>();
+
+        Vector3 forceDirection = shooterPoint.right; // Direction of the force
+      
+
+        ammoRigidbody.AddForce(forceDirection * pulsePower, ForceMode.Impulse);
         
 
 
