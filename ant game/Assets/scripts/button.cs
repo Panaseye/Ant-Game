@@ -9,6 +9,7 @@ public class button : XRBaseInteractable
     public Material untouched;
     private new Renderer renderer;
     public gun gun;
+    
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,10 +23,13 @@ public class button : XRBaseInteractable
     protected override void OnHoverEntered(HoverEnterEventArgs args)
     {
         base.OnHoverEntered(args);
-        renderer.material = touched;
-        gun.Shoot();
-
+        if (gun.isGrabbed)
         
+        {
+            renderer.material = touched;
+            gun.Shoot();
+        }
+           
     }
 
     protected override void OnHoverExited(HoverExitEventArgs args)

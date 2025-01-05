@@ -8,11 +8,12 @@ TagManager:
   - button
   - Left Hand
   - Right Hand
+  - ammo
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - ant
   - Water
   - UI
   - button

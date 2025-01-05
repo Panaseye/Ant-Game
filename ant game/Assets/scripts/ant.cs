@@ -1,82 +1,164 @@
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 [RequireComponent(typeof(CharacterController))]
-public class ant : MonoBehaviour
-{ 
-    public float speed = 2.0f; // Speed of the ant
-    public float directionChangeInterval = 1.0f; // Time between direction changes
-    public float maxHeadingChange = 30f; // Maximum change in direction per interval
-    public float pauseChance = 0.3f; // Probability of pausing at each interval
-
-    private CharacterController controller;
-    private float heading;
-    private Vector3 targetRotation;
-    private bool isPaused = false;
-
+public class ant : XRBaseInteractable
+{
     public GameObject message;
+    public Transform vrRig;
+    public Transform seat;
+    public float transitionSpeed = 3f;
+    public Canvas canvas;
+    public CanvasGroup fadeCanvas;
+    public float fadeDuration = 1f;
+    public bool shakad = false;
+    public bool isRiding = false;
+    private bool isHovering = false; // Tracks whether the player is hovering over the ant
+    private Collider antCollider;
+    private Collider vrRigCollider;
 
-	 void Awake()
+    protected override void Awake()
     {
-        controller = GetComponent<CharacterController>();
-
-        // Set random initial rotation
-        heading = Random.Range(0, 360);
-        transform.eulerAngles = new Vector3(0, heading, 0);
-
-        StartCoroutine(MovementRoutine());
+        base.Awake();
+        canvas = GetComponentInChildren<Canvas>();
+        canvas.gameObject.SetActive(false);
+        seat = transform.Find("seat");
+        antCollider = GetComponent<Collider>(); // Get the ant's collider
+        vrRigCollider = vrRig.GetComponent<Collider>(); // Get the VR rig's collider
     }
 
     void Update()
     {
-        if (!isPaused)
+        // If riding, smoothly follow the ant's position and rotation
+        if (isRiding)
         {
-            // Smoothly rotate towards the target direction
-            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, targetRotation, Time.deltaTime * directionChangeInterval);
-
-            // Move forward in the current direction
-            var forward = transform.TransformDirection(Vector3.forward);
-            controller.SimpleMove(forward * speed);
+            vrRig.position = Vector3.Lerp(vrRig.position, seat.position + new Vector3(0, 1f, 0), Time.deltaTime * transitionSpeed);
+            vrRig.rotation = Quaternion.Slerp(vrRig.rotation, seat.rotation, Time.deltaTime * transitionSpeed);
         }
     }
 
-    /// <summary>
-    /// Main movement routine.
-    /// </summary>
-    IEnumerator MovementRoutine()
+    // Start riding
+    public void StartRiding()
     {
-        while (true)
+        // Only start riding if the player is hovering
+        if (isHovering)
         {
-            // Random chance to pause
-            if (Random.value < pauseChance)
-            {
-                isPaused = true;
-                yield return new WaitForSeconds(Random.Range(0.5f, 1.5f)); // Pause for a random duration
-                isPaused = false;
-            }
+            StartCoroutine(FadeAndRide(true));
 
-            // Change direction
-            NewHeadingRoutine();
-            yield return new WaitForSeconds(directionChangeInterval);
+            // Move the VR rig to the seat's position and align its rotation to the seat
+            vrRig.position = seat.position + new Vector3(0, 1f, 0);  // Adjust offset to fit the seat
+            vrRig.rotation = seat.rotation;  // Align rotation to seat's rotation
+
+            // Ignore collisions between VR rig and ant during riding
+            Physics.IgnoreCollision(vrRigCollider, antCollider, true);
+
+            isRiding = true;
         }
     }
 
-    /// <summary>
-    /// Calculates a new random direction to move towards.
-    /// </summary>
-    void NewHeadingRoutine()
+    // Stop riding
+    public void StopRiding()
     {
-        var floor = Mathf.Clamp(heading - maxHeadingChange, 0, 360);
-        var ceil = Mathf.Clamp(heading + maxHeadingChange, 0, 360);
-        heading = Random.Range(floor, ceil);
-        targetRotation = new Vector3(0, heading, 0);
+        // Only stop riding if the player is hovering
+        if (isHovering)
+        {
+            StartCoroutine(FadeAndRide(false));
+
+            // After fading out, teleport the VR rig to a safe exit point
+            vrRig.position = new Vector3(0, 1f, 0);  // Adjust to a safe exit location
+            vrRig.rotation = Quaternion.identity;  // Reset rotation to default orientation
+
+            // Re-enable collisions between VR rig and ant after dismounting
+            Physics.IgnoreCollision(vrRigCollider, antCollider, false);
+
+            isRiding = false;
+        }
+    }
+
+    private IEnumerator FadeAndRide(bool start)
+    {
+        // Fade to black before moving or teleporting
+        yield return Fade(start ? 1 : 0);
+
+        // If not riding, teleport to the seat's position and rotation
+        if (start)
+        {
+            vrRig.position = seat.position + new Vector3(0, 1f, 0);  // Adjust position to fit the seat
+            vrRig.rotation = seat.rotation;  // Align rotation to seat's rotation
+        }
+
+        // Fade back in (for mounting or dismounting)
+        yield return Fade(start ? 0 : 1);
+    }
+
+    private IEnumerator Fade(float targetAlpha)
+    {
+        float startAlpha = fadeCanvas.alpha;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            fadeCanvas.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / fadeDuration);
+            yield return null;
+        }
+
+        fadeCanvas.alpha = targetAlpha;
+
+        // After fade out, ensure the canvas is hidden if stopping the ride
+        if (targetAlpha == 0)
+        {
+            canvas.gameObject.SetActive(false);
+        }
+        else if (targetAlpha == 1)
+        {
+            // Ensure it's visible when fading back in
+            canvas.gameObject.SetActive(true);
+        }
+    }
+
+    protected override void OnHoverEntered(HoverEnterEventArgs args)
+    {
+        // Mark that the player is hovering over the ant
+        isHovering = true;
+        if (!isRiding)
+        {
+            canvas.gameObject.SetActive(true); // Show gesture prompt
+        }
+    }
+
+    protected override void OnHoverExited(HoverExitEventArgs args)
+    {
+        // Mark that the player is no longer hovering over the ant
+        isHovering = false;
+        canvas.gameObject.SetActive(false); // Hide gesture prompt
+    }
+
+    public void Shakad()
+    {
+        // Toggle riding status based on current state
+        if (!isRiding && isHovering)
+        {
+            // Start riding if not already riding and hovering
+            StartRiding();
+        }
+        else if (isRiding && isHovering)
+        {
+            // Stop riding if already riding and hovering
+            StopRiding();
+        }
+    }
+
+    public void UnShakad()
+    {
+        shakad = false;
     }
 
     public void PoopMessage(string theMessage)
     {
-        Instantiate(message,gameObject.transform);
+        Instantiate(message, gameObject.transform);
         message.GetComponent<message>().antSay = theMessage;
-
     }
 }

@@ -1,12 +1,16 @@
+using Unity.XR.CoreUtils;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 public class player : MonoBehaviour
 {
 
-     public Transform character;
-     public Transform vrCamera;
-     public float speed = 1f;
-      private bool isMoving = false;
+    public Transform character;
+    public Transform vrCamera;
+    public float speed = 1f;
+    private bool isMoving = false;
+    
+   
 
      
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,6 +18,7 @@ public class player : MonoBehaviour
     {
         
     }
+
 
     // Update is called once per frame
     void Update()
@@ -42,7 +47,6 @@ public class player : MonoBehaviour
         forward.y = 0;
         character.position += forward * speed * Time.deltaTime;
     }
+
     
-
-
 }
