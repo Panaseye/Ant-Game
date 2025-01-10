@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class player : MonoBehaviour
 {
 
-    public Transform character;
+    public Rigidbody character;
     public Transform vrCamera;
     public float speed = 1f;
     private bool isMoving = false;
@@ -45,7 +45,7 @@ public class player : MonoBehaviour
     {
         Vector3 forward = vrCamera.forward;
         forward.y = 0;
-        character.position += forward * speed * Time.deltaTime;
+        character.AddForce(forward * speed * Time.deltaTime);
     }
 
     

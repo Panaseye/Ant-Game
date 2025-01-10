@@ -30,9 +30,7 @@ public class message : XRBaseInteractable
         base.OnHoverEntered(args);
         renderer.material = touched;
         messageUI.gameObject.SetActive(true);
-
-
-        
+      
     }
 
     protected override void OnHoverExited(HoverExitEventArgs args)
