@@ -3100,6 +3100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 1256064568}
+  characterRigidbody: {fileID: 0}
   vrCamera: {fileID: 2019470944}
   speed: 1
 --- !u!1 &1257563597
@@ -3127,7 +3128,7 @@ Transform:
   m_GameObject: {fileID: 1257563597}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.337, y: -0.596, z: 4.175}
+  m_LocalPosition: {x: 0.337, y: -1.642, z: 4.175}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4229,7 +4230,7 @@ Transform:
   m_GameObject: {fileID: 1866627102}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.00000026822087, w: 1}
-  m_LocalPosition: {x: 0, y: -0.008, z: -0.062}
+  m_LocalPosition: {x: -0, y: 1.09, z: -0.062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6510,11 +6511,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8025090574636938234, guid: 43d9c4d6b359548f38bcc3caa22dd117, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.605
       objectReference: {fileID: 0}
     - target: {fileID: 8025090574636938234, guid: 43d9c4d6b359548f38bcc3caa22dd117, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.65
       objectReference: {fileID: 0}
     - target: {fileID: 8025090574636938234, guid: 43d9c4d6b359548f38bcc3caa22dd117, type: 3}
       propertyPath: m_LocalRotation.w

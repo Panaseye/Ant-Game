@@ -3,6 +3,7 @@ using UnityEngine;
 public class shootable : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
+    public Collider collider1;
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -10,6 +11,7 @@ public class shootable : MonoBehaviour
     {
        meshRenderer =  gameObject.GetComponent<MeshRenderer>();
        meshRenderer.enabled = false;
+       collider1.enabled = false;
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class shootable : MonoBehaviour
         if (other.gameObject.CompareTag("ammo"))
         {
             meshRenderer.enabled = true;
+            collider1.enabled = true;
             Destroy(other.gameObject);
 
         }
