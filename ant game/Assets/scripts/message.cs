@@ -14,13 +14,17 @@ public class message : XRBaseInteractable
     private new Renderer renderer;
     [SerializeField] TextMeshProUGUI messageText;
     public Canvas messageUI;
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    protected override void Awake()
+    {   
+        base.Awake();
         renderer = GetComponent<MeshRenderer>();
         messageText= GetComponentInChildren<TextMeshProUGUI>();
         messageUI = GetComponentInChildren<Canvas>();
+        
+
         messageText.text = antSay;
         messageUI.gameObject.SetActive(false);
     }

@@ -6,7 +6,9 @@ public class respawner : MonoBehaviour
 
     public GameObject character;
     public GameObject gun;
+    public GameObject ant;
     public Transform gunSpawn;
+    public Transform antSpawn;
     public Transform characterSpawn;
     
 
@@ -17,6 +19,9 @@ public class respawner : MonoBehaviour
             character.transform.position = characterSpawn.position;
             gun.transform.position = gunSpawn.position;
 
+        } else if (other.gameObject.CompareTag("ammo"))
+        {
+            Destroy(other.gameObject);
         }
        
 
