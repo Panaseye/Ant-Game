@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 320bd00a6b9212f4ab36a98752a0a28c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -161,8 +161,8 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
-  touched: {fileID: 2100000, guid: afc2adc033f294de6bb1ed4913cc1752, type: 2}
-  untouched: {fileID: 2100000, guid: d788249485f264af6922582a4cba642d, type: 2}
+  touched: {fileID: 2100000, guid: ad8d7ba69366f9e44b51b0983cfbbb09, type: 2}
+  untouched: {fileID: 2100000, guid: ad8d7ba69366f9e44b51b0983cfbbb09, type: 2}
   antSay: yo can grab the larvae and push on its sides to produce sticky silk.
   messageText: {fileID: 0}
   messageUI: {fileID: 0}
@@ -185,8 +185,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.9997635, y: 0.28306594, z: 9.9997635}
-  m_Center: {x: 0, y: -0.025536967, z: 0}
+  m_Size: {x: 7.699028, y: 0.28306013, z: 6.9894047}
+  m_Center: {x: 0.0011187795, y: -0.025536975, z: -0.24124318}
 --- !u!1 &4906579805350081437
 GameObject:
   m_ObjectHideFlags: 0

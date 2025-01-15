@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 55daccc09a3b69647bbab145b54a3ab3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/menuScene.unity
     guid: ace755d2a823a41f497e5275c2607a1b
   - enabled: 0
@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/pond level.unity
     guid: 511da7db104ba481da5d7aa9a3d0faef
+  - enabled: 1
+    path: Assets/Scenes/ant game/level 1 intro.unity
+    guid: 43254730c151cec4b82834e55fe2c07d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
