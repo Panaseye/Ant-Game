@@ -1,0 +1,2 @@
+/Users/talezra/Downloads/Ant-Game-624636ddea90ac56eb0f7761c3631bf63eec3528-2/ant game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/Users/talezra/Downloads/Ant-Game-624636ddea90ac56eb0f7761c3631bf63eec3528-2/ant game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt

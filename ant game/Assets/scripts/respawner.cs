@@ -10,6 +10,7 @@ public class respawner : MonoBehaviour
     public Transform gunSpawn;
     public Transform antSpawn;
     public Transform characterSpawn;
+    public startFollow startFollow;
     
 
    void OnTriggerEnter(Collider other)
@@ -18,6 +19,8 @@ public class respawner : MonoBehaviour
         {
             character.transform.position = characterSpawn.position;
             gun.transform.position = gunSpawn.position;
+            ant.transform.position = antSpawn.position;
+            startFollow.startBridge = false;
 
         } else if (other.gameObject.CompareTag("ammo"))
         {
