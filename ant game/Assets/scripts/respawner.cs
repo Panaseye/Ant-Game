@@ -11,22 +11,26 @@ public class respawner : MonoBehaviour
     public Transform antSpawn;
     public Transform characterSpawn;
     public startFollow startFollow;
-    
+    public Transform antLoop;
 
    void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("ammo"))
+        if (other.gameObject.CompareTag("ammo"))
+        {
+            Destroy(other.gameObject);
+        }else if (other.gameObject.CompareTag("clone"))
+        {
+            other.transform.position = antLoop.position;
+            other.transform.rotation = antLoop.rotation;
+
+        }else if (!other.gameObject.CompareTag("ammo"))
         {
             character.transform.position = characterSpawn.position;
             gun.transform.position = gunSpawn.position;
             ant.transform.position = antSpawn.position;
             startFollow.startBridge = false;
 
-        } else if (other.gameObject.CompareTag("ammo"))
-        {
-            Destroy(other.gameObject);
-        }
-       
+        } 
 
     }
 }
