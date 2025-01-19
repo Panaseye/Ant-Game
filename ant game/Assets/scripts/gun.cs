@@ -14,11 +14,12 @@ public class gun : XRGrabInteractable
     public float pulsePower = 100f;
 
     public bool isGrabbed = false;
+    public AudioSource sound;
     
      void Start()
     {
        
-        
+        sound = GetComponent<AudioSource>();
     }
   
     public void Shoot()
@@ -33,6 +34,7 @@ public class gun : XRGrabInteractable
 
         ammoRigidbody.AddForce(forceDirection * pulsePower, ForceMode.Impulse);
         
+        sound.Play();
 
 
     }

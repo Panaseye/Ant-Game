@@ -14,7 +14,7 @@ public class message : XRBaseInteractable
     private new Renderer renderer;
     [SerializeField] TextMeshProUGUI messageText;
     public Canvas messageUI;
-   
+    public AudioSource sound; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Awake()
@@ -23,6 +23,7 @@ public class message : XRBaseInteractable
         renderer = GetComponent<MeshRenderer>();
         messageText= GetComponentInChildren<TextMeshProUGUI>();
         messageUI = GetComponentInChildren<Canvas>();
+        sound = GetComponent<AudioSource>();
         
 
         messageText.text = antSay;
@@ -34,6 +35,7 @@ public class message : XRBaseInteractable
         base.OnHoverEntered(args);
         renderer.material = touched;
         messageUI.gameObject.SetActive(true);
+        sound.Play();
       
     }
 

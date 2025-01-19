@@ -12,7 +12,9 @@ public class respawner : MonoBehaviour
     public Transform characterSpawn;
     public startFollow startFollow;
     public Transform antLoop;
+    public AudioSource sound;
 
+    
    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("ammo"))
@@ -23,12 +25,14 @@ public class respawner : MonoBehaviour
             other.transform.position = antLoop.position;
             other.transform.rotation = antLoop.rotation;
 
-        }else if (!other.gameObject.CompareTag("ammo"))
+        }else if (other.gameObject.CompareTag("Player"))
         {
             character.transform.position = characterSpawn.position;
             gun.transform.position = gunSpawn.position;
             ant.transform.position = antSpawn.position;
             startFollow.startBridge = false;
+            sound.Play();
+
 
         } 
 
