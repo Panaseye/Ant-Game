@@ -10,7 +10,9 @@ public class player : MonoBehaviour
     public Transform character;
     public CharacterController characterController;
     public Transform vrCamera;
+    public Transform spawningPoint;
     public float speed = 1f;
+    public float speedMulti = 1f;
     private bool isMoving = false;
     
    
@@ -31,6 +33,13 @@ public class player : MonoBehaviour
             MoveForward();
         }
         ApplyGravity();
+
+        if (characterController.isGrounded)
+        {
+            spawningPoint.position = gameObject.transform.position;
+        }
+
+
     }
 
     public void MovePlayer()
@@ -45,6 +54,16 @@ public class player : MonoBehaviour
         isMoving = false;
     }
 
+    public void SpeedMulti()
+    {
+        speedMulti = 2;
+    }
+
+    public void StopMulti()
+    {
+        speedMulti = 1;
+    }
+
     private void MoveForward()
     {
          // Calculate the forward direction relative to the VR camera
@@ -53,7 +72,7 @@ public class player : MonoBehaviour
     forward.Normalize(); // Ensure the direction vector is normalized
 
     // Use Rigidbody to move the character
-    Vector3 moveOffset = forward * speed * Time.deltaTime;
+    Vector3 moveOffset = forward * speed * speedMulti * Time.deltaTime;
     characterController.Move(moveOffset);
     }
 
